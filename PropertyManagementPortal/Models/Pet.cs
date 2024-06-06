@@ -62,5 +62,11 @@ namespace PropertyManagementPortal.Models
         /// </summary>
         [Display(Name = "Breed")]
         public string Breed { get; set; }
+
+        /// <summary>
+        ///     The name of this pet.
+        /// </summary>
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 }
