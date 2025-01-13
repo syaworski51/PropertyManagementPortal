@@ -10,92 +10,99 @@ namespace PropertyManagementPortal.Models
     public class Lease
     {
         /// <summary>
-        ///     The ID of this lease agreement.
+        ///     The status of this lease.
+        ///     
+        ///     Signed - The lease has been signed, but has not started yet.
+        ///     Active - The lease is currently active.
+        ///     Expired - The lease has expired.
+        ///     Terminated - The lease has been terminated, either by the tenant(s) ending the lease early,
+        ///                  or the landlord evicting the tenant(s).
         /// </summary>
-        [Key]
-        public Guid Id { get; set; }
+        public string Status { get; set; }
+        
+        /// <summary>
+        ///     The tenants on this lease.
+        /// </summary>
+        public List<Tenant> Tenants { get; set; }
 
         /// <summary>
-        ///     The ID of the property where the tenant is renting a unit.
+        ///     A list of emergency contacts.
         /// </summary>
-        [ForeignKey(nameof(Property))]
-        public Guid PropertyId { get; set; }
+        public List<EmergencyContact> EmergencyContacts { get; set; }
 
         /// <summary>
-        ///     The property where the tenant is renting a unit.
+        ///     The duration of this lease in months. Null if this is a month-to-month lease.
         /// </summary>
-        [Display(Name = "Property")]
+        public int? Duration { get; set; }
+
+        /// <summary>
+        ///     The type of lease this is (fixed, month-to-month).
+        /// </summary>
+        public string LeaseType { get; set; }
+
+        /// <summary>
+        ///     The start date of this lease.
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        ///     The end date of this lease.
+        /// </summary>
+        public DateTime EndDate { get; set; }
+
+        /// <summary>
+        ///     The deadline for renewing this lease.
+        /// </summary>
+        public DateTime? RenewalDeadline { get; set; }
+
+        /// <summary>
+        ///     The monthly rent for this lease.
+        /// </summary>
+        public decimal MonthlyRent { get; set; }
+
+        /// <summary>
+        ///     Any additional fees associated with this lease.
+        /// </summary>
+        public List<Fee> AdditionalFees { get; set; }
+
+        /// <summary>
+        ///     The security deposit for this lease.
+        /// </summary>
+        public Deposit SecurityDeposit { get; set; }
+
+        /// <summary>
+        ///     The property for this lease.
+        /// </summary>
         public Property Property { get; set; }
 
         /// <summary>
-        ///     The ID of the unit the tenant is renting.
+        ///     The unit for this lease.
         /// </summary>
-        [ForeignKey(nameof(Unit))]
-        public Guid UnitId { get; set; }
-
-        /// <summary>
-        ///     The unit the tenant is renting.
-        /// </summary>
-        [Display(Name = "Unit")]
         public Unit Unit { get; set; }
 
+        /// <summary>
+        ///     The storage unit(s) assigned to the tenant(s) on this lease.
+        /// </summary>
+        public List<StorageUnit> StorageUnits { get; set; }
 
         /// <summary>
-        ///     The ID of the lease administrator signing this lease.
+        ///     The parking spot(s) assigned to the tenant(s) on this lease.
         /// </summary>
-        [ForeignKey(nameof(LeaseAdmin))]
-        public Guid LeaseAdminId { get; set; }
+        public List<ParkingSpot> ParkingSpots { get; set; }
 
         /// <summary>
-        ///     The lease administrator signing this lease.
+        ///     All the occupants on this lease. Includes the aforementioned tenants and any other adults and minors.
         /// </summary>
-        [Display(Name = "Lease Admin")]
-        public Employee LeaseAdmin { get; set; }
+        public List<Occupant> Occupants { get; set; }
 
         /// <summary>
-        ///     Has the lease administrator signed this lease?
+        ///     A chronological log of all the amendments that have been made to this lease.
+        ///     
+        ///     Examples:
+        ///         - Jan 24, 2023: Rent increased from $1500 to $1800.
+        ///         - Apr 17, 2023: Pet added to lease ("Baxter", male golden retriever, 2 years old).
+        ///         - Aug 08, 2023: Roommate removed from lease ("John Doe", male, 24 years old).
         /// </summary>
-        [Display(Name = "Signed by L.A.?")]
-        public bool LeaseAdminSignature { get; set; }
-
-        /// <summary>
-        ///     The date the lease administrator signed this lease.
-        ///     Null if the lease administrator has not yet signed this lease.
-        /// </summary>
-        [Display(Name = "Date of L.A. Sign.")]
-        public DateTime? DateOfLeaseAdminSignature { get; set; }
-
-        
-        /// <summary>
-        ///     The ID of the tenant signing this lease.
-        /// </summary>
-        [ForeignKey(nameof(Tenant))]
-        public Guid TenantId { get; set; }
-
-        /// <summary>
-        ///     The tenant signing this lease.
-        /// </summary>
-        [Display(Name = "Tenant")]
-        public Tenant Tenant { get; set; }
-
-        /// <summary>
-        ///     Has the tenant signed this lease?
-        /// </summary>
-        [Display(Name = "Signed by tenant?")]
-        public bool TenantSignature { get; set; }
-
-        /// <summary>
-        ///     The date the tenant signed this lease.
-        ///     Null if the tenant has not yet signed this lease.
-        /// </summary>
-        [Display(Name = "Date of Tenant Sign.")]
-        public DateTime? DateOfTenantSignature { get; set; }
-
-
-        /// <summary>
-        ///     The link that can be used to download a copy of this lease agreement.
-        /// </summary>
-        [Display(Name = "Download URL")]
-        public string DownloadURL { get; set; }
+        public List<Amendment> Amendments { get; set; }
     }
 }
