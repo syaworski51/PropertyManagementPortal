@@ -9,7 +9,7 @@ namespace PropertyManagementPortal.Data
 
         public MongoDbContext(IConfiguration configuration)
         {
-            var dbInfo = configuration.GetSection("Secrets:MongoDB");
+            var dbInfo = configuration.GetSection("PortalSecrets:MongoDB");
             var connectionString = dbInfo["Connection"];
             var name = dbInfo["DBName"];
 

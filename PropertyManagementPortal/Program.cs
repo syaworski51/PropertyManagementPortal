@@ -4,7 +4,7 @@ using PropertyManagementPortal.Data;
 using PropertyManagementPortal.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var secrets = builder.Configuration.GetSection("Secrets");
+var secrets = builder.Configuration.GetSection("PortalSecrets");
 
 // Add services to the container.
 var connectionString = secrets.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
