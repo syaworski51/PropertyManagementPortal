@@ -5,7 +5,7 @@ using PropertyManagementPortalAPI.Interfaces;
 
 namespace PropertyManagementPortalAPI.Services
 {
-    public class MongoCollectionService<TEntity>
+    public class MongoCollectionService<TEntity> where TEntity : IEntity
     {
         private readonly IMongoCollection<TEntity> _collection;
 
